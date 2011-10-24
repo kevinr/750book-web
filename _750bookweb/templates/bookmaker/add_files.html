@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Add or delete files" %}{% endblock %}
+
+{% block body_class %}add_files{% endblock %}
+
+{% block body %}
+    
+    <h1>
+        {% blocktrans with submission.title as title with submission.author as author %}
+            Add or delete files on {{title}}, by {{author}}
+        {% endblocktrans %}
+    </h1>
+    
+    <ul class="file-list">
+        {% for file in files %}
+            <li>{{ file }}</li>
+        {% endfor %}
+    </ul>
+    <form class="add_files" enctype="multipart/form-data" action="{% url add_files nonce=submission.nonce %}" method="post">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" value="Add or delete files" />
+        <a class="return" href="{% url review nonce=submission.nonce %}">Return to book</a>
+    </form>
+    
+{% endblock %}

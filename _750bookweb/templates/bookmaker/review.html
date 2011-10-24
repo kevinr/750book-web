@@ -1,0 +1,39 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Review" %}{% endblock %}
+
+{% block body_class %}review{% endblock %}
+
+{% block body %}
+    
+    <h1>
+        {% blocktrans with submission.title as title with submission.author as author %}
+            Review {{ title }}, by {{ author }}
+        {% endblocktrans %}
+    </h1>
+    
+    <dl class="usersubmission">
+        <dt>{% trans "Title" %}</dt>
+        <dd>{{ submission.title }}</dd>
+
+        <dt>{% trans "Author" %}</dt>
+        <dd>{{ submission.author }}</dd>
+
+        <dt>{% trans "Files" %}</dt>
+        <dd>
+            <ul>
+                {% for file in files %}
+                    <li>{{ file }}</li>
+                {% endfor %}
+            </ul>
+        </dd>
+    </dl>
+    
+    <p class="usersubmission_actions">
+        <a href="{% url update nonce=submission.nonce %}">Update</a>
+        <a href="{% url add_files nonce=submission.nonce %}">Add or delete files</a>
+    </p>
+    
+{% endblock %}

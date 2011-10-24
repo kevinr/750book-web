@@ -1,0 +1,38 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}
+    {% if editing %}
+        Update submission
+    {% else %}
+        Create new submission
+    {% endif %}
+{% endblock %}
+
+{% block body_class %}update{% endblock %}
+
+{% block body %}
+    
+    <h1>
+        {% if editing %}
+            {% blocktrans with submission.title as title with submission.author as author %}
+                Updating {{title}}, by {{author}}
+            {% endblocktrans %}
+        {% else %}
+            Create new submission
+        {% endif %}
+    </h1>
+    
+    {% if editing %}
+        <form class="create_update_submission" action="{% url update nonce=submission.nonce %}" method="post">
+    {% else %}
+        <form class="create_update_submission" action="{% url create %}" method="post">
+    {% endif %}
+            {% csrf_token %}
+            {{ form.as_p }}
+            <input type="submit" value="{% if editing %}Update{% else %}Create{% endif %}" />
+            <a class="return" href="{% url review nonce=submission.nonce %}">Return to book</a>
+    </form>
+    
+{% endblock %}

@@ -64,6 +64,9 @@ MEDIA_ROOT = os.path.join(PROJECT_ROOT, "site_media", "media")
 # Examples: "http://media.lawrence.com", "http://example.com/media/"
 MEDIA_URL = "/site_media/media/"
 
+# file upload permissions
+FILE_UPLOAD_PERMISSIONS = 0440
+
 # Absolute path to the directory that holds static files like app media.
 # Example: "/home/media/media.lawrence.com/apps/"
 STATIC_ROOT = os.path.join(PROJECT_ROOT, "site_media", "static")
@@ -141,6 +144,7 @@ INSTALLED_APPS = [
     # Pinax
     
     # project
+    "bookmaker",
 ]
 
 FIXTURE_DIRS = [
