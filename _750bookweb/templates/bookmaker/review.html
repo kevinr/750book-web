@@ -2,16 +2,28 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Review" %}{% endblock %}
+{% block head_title %}
+    {% if processed %}
+        {% trans "Processed" %}
+    {% else %}
+        {% trans "Review" %}
+    {% endif %}
+{% endblock %}
 
 {% block body_class %}review{% endblock %}
 
 {% block body %}
     
     <h1>
-        {% blocktrans with submission.title as title with submission.author as author %}
-            Review {{ title }}, by {{ author }}
-        {% endblocktrans %}
+        {% if processed %}
+            {% blocktrans with submission.title as title with submission.author as author %}
+                Processed {{ title }}, by {{ author }}
+            {% endblocktrans %}
+        {% else %}
+            {% blocktrans with submission.title as title with submission.author as author %}
+                Review {{ title }}, by {{ author }}
+            {% endblocktrans %}
+        {% endif %}
     </h1>
     
     <dl class="usersubmission">
@@ -31,9 +43,18 @@
         </dd>
     </dl>
     
-    <p class="usersubmission_actions">
-        <a href="{% url update nonce=submission.nonce %}">Update</a>
-        <a href="{% url add_files nonce=submission.nonce %}">Add or delete files</a>
-    </p>
+    {% if not processed %}
+        <p class="usersubmission_actions">
+            <a href="{% url update nonce=submission.nonce %}">Update</a>
+            <a href="{% url add_files nonce=submission.nonce %}">Add or delete files</a>
+        </p>
+
+        <form action="{% url process nonce=submission.nonce %}" method="post">
+            {% csrf_token %}
+            <input type="submit" value="Submit book for processing..."/>
+        </form>
+    {% else %}
+        Here's your completed book!
+    {% endif %}
     
 {% endblock %}

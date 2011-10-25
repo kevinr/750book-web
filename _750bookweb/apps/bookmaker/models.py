@@ -20,11 +20,14 @@ class UserSubmission(models.Model):
         ( 'PROCESSING', 'Processing' ),
         ( 'PROCESSED', 'Processed' ),
     )
-    state = models.CharField(_("Current State"), max_length=20, choices=STATE_CHOICES, default='NEW', editable=False)
+    state = models.CharField(_("Current State"), max_length=20, choices=STATE_CHOICES, default='NEW')
     processing_time = models.DateTimeField(_("Processing Time"), null=True, blank=True, editable=False)
 
     def can_process(self):
         return self.state == 'NEW'
+
+    def is_processing(self):
+        return self.state == 'PROCESSING'
 
     def is_processed(self):
         return self.state == 'PROCESSED'

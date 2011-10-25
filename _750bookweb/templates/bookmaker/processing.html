@@ -1,0 +1,28 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block head_title %}{% trans "Processing" %}{% endblock %}
+
+{% block extra_head %}
+    <meta http-equiv="refresh" content="{{ reload }}" />
+{% endblock %}
+
+{% block body_class %}processing{% endblock %}
+
+{% block body %}
+    
+    <h1>
+        {% blocktrans with submission.title as title with submission.author as author %}
+            Processing {{ title }}, by {{ author }}...
+        {% endblocktrans %}
+    </h1>
+
+    <p>
+        {% url process nonce=nonce as process_url %}
+        {% blocktrans with submission.nonce as nonce %}
+            This may take a while.  If this page doesn't update in {{ reload }} seconds, click <a href="{{ process_url }}">here</a>.
+        {% endblocktrans %}
+    </p>
+    
+{% endblock %}

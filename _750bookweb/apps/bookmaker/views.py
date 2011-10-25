@@ -9,6 +9,7 @@ from models import UserSubmission, File
 class UserSubmissionForm(ModelForm):
     class Meta:
         model = UserSubmission
+        exclude = ['state']
 
 class FileForm(ModelForm):
     class Meta:
@@ -62,7 +63,11 @@ def review(request, nonce=''):
     submission = get_object_or_404(UserSubmission, nonce=nonce)
     files = File.objects.filter(usersubmission=submission)
 
-    return render_to_response('bookmaker/review.html', { 'submission': submission, 'files': files },
+    if submission.is_processing():
+        return HttpResponseRedirect(reverse(process, kwargs={'nonce': submission.nonce}))
+
+    return render_to_response('bookmaker/review.html', { 'submission': submission, 'files': files, 
+                                                            'processed': submission.is_processed() },
                                 context_instance=RequestContext(request))
 
 def process(request, nonce=''):
@@ -73,5 +78,5 @@ def process(request, nonce=''):
     elif request.method == 'POST' and submission.can_process():
         submission.process()
 
-    return render_to_response('bookmaker/processing.html', { 'submission': submission },
+    return render_to_response('bookmaker/processing.html', { 'submission': submission, 'reload': 5, },
                                 context_instance=RequestContext(request))
