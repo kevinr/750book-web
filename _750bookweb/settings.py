@@ -1,12 +1,16 @@
 # -*- coding: utf-8 -*-
 # Django settings for _750bookweb project.
 
-import os.path
+import sys, os.path
 import posixpath
 import pinax
 
 PINAX_ROOT = os.path.abspath(os.path.dirname(pinax.__file__))
 PROJECT_ROOT = os.path.abspath(os.path.dirname(__file__))
+
+# add 750book-script, lib to path
+sys.path.insert(0, os.path.join(PROJECT_ROOT, "lib"))
+sys.path.insert(0, os.path.join(PROJECT_ROOT, 'lib', 'vendor', '750book-script'))
 
 # tells Pinax to use the default theme
 PINAX_THEME = "default"
