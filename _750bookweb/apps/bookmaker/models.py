@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from datetime import datetime
 import uuid
 
+from _750booklatex import render as render_750booklatex
+
 # I think I want to enforce the invariant that UserSubmissions can only be edited before they're processed,
 # and Files can't be edited at all once created.
 
@@ -23,6 +25,15 @@ class UserSubmission(models.Model):
     state = models.CharField(_("Current State"), max_length=20, choices=STATE_CHOICES, default='NEW')
     processing_time = models.DateTimeField(_("Processing Time"), null=True, blank=True, editable=False)
 
+    def __getattribute__(self, name):
+        if name == 'files':
+            return models.Model.__getattribute__(self, 'files')()
+        else:
+            return models.Model.__getattribute__(self, name)
+
+    def files(self):
+        return File.objects.filter(usersubmission=self)
+
     def can_process(self):
         return self.state == 'NEW'
 
@@ -36,6 +47,10 @@ class UserSubmission(models.Model):
         self.processing_time = datetime.now()
         self.state = 'PROCESSING'
         self.save()
+
+    def render_to_latex(self):
+        input = [f.path.file for f in self.files]
+        return render_750booklatex(*input, title=self.title, author=self.author)
 
     def __unicode__(self):
         return "%s - %s" % (str(self.ctime), self.nonce) 
