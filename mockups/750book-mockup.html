@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>750 mockup</title>
+        <style type="text/css">
+            * { 
+                margin: 0px; 
+                padding: 0px; 
+            } 
+
+            body {
+                font-family: helvetica, sans-serif;
+                font-size: 14pt;
+                padding-bottom: 5%;
+                background-color: #eee;
+            }
+
+            a {
+                color: #4DB559;
+            }
+
+            h1 {
+                margin: auto;
+                margin-top: 5%;
+
+                padding-bottom: 0.3em;
+
+                text-align: center;
+
+                font-size: 2em;
+                font-style: italic;
+                font-weight: normal;
+            }
+
+            div.dialog {
+                width: 590px;
+                min-height: 320px;
+                padding: 18px;
+
+                margin: auto;
+
+                background-color: #fff;
+
+                border-style: solid;
+                border-width: 10px;
+                -moz-border-radius: 50px;
+                border-radius: 50px;
+
+                /*border-color: #007;*/
+                border-color: #4DB559;
+
+                -webkit-box-shadow: 10px 10px 10px rgba(0,0,0,0.3), 2px 2px 2px rgba(0,0,0,0.3) inset;
+                box-shadow: 10px 10px 10px rgba(0,0,0,0.3), 2px 2px 2px rgba(0,0,0,0.3) inset;
+            }
+
+            h2 {
+                font-size: 1em;
+                font-weight: bold;
+                margin-bottom: 7pt;
+            }
+
+            div.dialog-left-box {
+                float: left;
+
+                width: 35%;
+                min-height: 320px;
+
+                margin-bottom: 7pt;
+                padding-right: 12px;
+            }
+
+            div.dialog-right-box {
+                float: left;
+
+                width: 60%;
+                min-height: 320px;
+
+                border-left-width: 1px;
+                border-left-style: dotted;
+                border-left-color: #aaa;
+
+                margin-bottom: 7pt;
+                padding-left: 12px;
+
+                text-align: justify;
+            }
+
+            div.dialog-clear {
+                height: 0;
+                width: 0;
+                clear: both;
+            }
+
+            div.dialog-footer {
+                min-height: 14pt;
+            }
+
+            p {
+                padding: 4pt 0pt;
+            }
+            p.first {
+                padding-top: 0pt;
+            }
+            p.last {
+                padding-bottom: 0pt;
+            }
+            p.calltoaction {
+                font-weight: bold;
+            }
+
+            #frontpage-calltoaction {
+                padding-top: 44pt;
+            }
+            #frontpage-form-create_update_submission {
+                padding-top: 100pt;
+            }
+
+            label {
+                float: left;
+                display: block;
+                font-weight: bold;
+                width: 4em;
+                margin-right: 0.5em;
+                text-align: right;
+            }
+            input {
+                font-size: inherit;
+            }
+            input[type="submit"] {
+                font-weight: bold;
+                padding: 2px;
+                margin-left: 0.5em;
+                text-align: center;
+            }
+            input[type="text"] {
+                min-width: 12em;
+            }
+
+            p.submit-next {
+                float: right;
+                text-align: right;
+            }
+
+            #frontpage-form-create_update_submission-submit-next {
+                margin-top: 60pt;
+            }
+
+            div.footer {
+                text-align: center;
+                font-size: 7pt;
+                margin-top: 20px;
+                color: #666;
+            }
+            div.footer a {
+                color: #666;
+            }
+
+            span.title {
+                font-style: italic;
+            }
+        </style>
+    </head>
+    <body>
+        <h1>Print your words - 750book.com</h1>
+        <div class="dialog">
+            <!--
+            <h2><span class="title">750 Words Morning Pages</span>, by <span class="author">Kevin Riggle</span></h2>
+            -->
+            <div class="dialog-left-box">
+                <p id="frontpage-calltoaction" class="first calltoaction">Turn your <a href="http://750words.com">750 Words</a> writing into a physical book!</p>
+
+                <p id="frontpage-description" class="description">Just enter your name and the book's title to get started.</p>
+            </div>
+            <div class="dialog-divider"></div>
+            <div class="dialog-right-box">
+                <form id="frontpage-form-create_update_submission" class="create_update_submission" action="" method="post">
+                    <p><label for="id_title">Title:</label> <input id="id_title" type="text" name="title" value="750 Words Morning Pages" maxlength="100" autofocus="true" /></p>
+                    <p><label for="id_author">Author:</label> <input id="id_author" type="text" name="author" value="" maxlength="100" placeholder="your name here!" /></p>
+                    <p id="frontpage-form-create_update_submission-submit-next" class="submit-next">Next step: add files <input class="submitbutton" type="submit" value="Create" /></p>
+                </form>
+            </div>
+            <div class="dialog-clear"></div>
+        </div>
+        <!--
+        <div class="dialog-footer"></div>
+        -->
+        <div class="footer">Copyright © 2011 <a href="http://free-dissociation.com">Kevin Riggle</a>.  All Rights Reserved.  This site has no relationship with <a href="http://750words.com">750 Words</a>, I just use it and like it.</p>
+    </body>
+</html>
