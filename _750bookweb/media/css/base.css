@@ -95,7 +95,8 @@ div.dialog-footer {
 p {
     padding: 4pt 0pt;
 }
-p.first {
+/* *-of-type is a CSS3-ism, won't be reliable; thankfully I care more about tops lining up */
+p:first-child {
     padding-top: 0pt;
 }
 p.last {
@@ -105,10 +106,10 @@ p.calltoaction {
     font-weight: bold;
 }
 
-#frontpage-calltoaction {
+body.create-submission p.calltoaction {
     padding-top: 44pt;
 }
-#frontpage-form-create_update_submission {
+body.create-submission form.create-update-submission {
     padding-top: 100pt;
 }
 
@@ -138,7 +139,7 @@ p.submit-next {
     text-align: right;
 }
 
-#frontpage-form-create_update_submission-submit-next {
+body.create-submission p.submit-next {
     margin-top: 60pt;
 }
 

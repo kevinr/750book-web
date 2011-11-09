@@ -10,7 +10,13 @@
     {% endif %}
 {% endblock %}
 
-{% block body_class %}update{% endblock %}
+{% block body_class %}
+    {% if editing %}
+        update-submission
+    {% else %}
+        create-submission
+    {% endif %}
+{% endblock %}
 
 {% block dialog_header_outer %}
     {% if editing %}
@@ -19,21 +25,28 @@
 {% endblock %}
 
 {% block dialog_left_box %}
-    <p id="frontpage-calltoaction" class="first calltoaction">{% blocktrans %}Turn your <a href="http://750words.com">750 Words</a> writing into a physical book!{% endblocktrans %}</p>
+    <p class="first calltoaction">
+        {% blocktrans %}
+            Turn your <a href="http://750words.com">750 Words</a> writing into a physical book!
+        {% endblocktrans %}
+    </p>
 
-    <p id="frontpage-description" class="description">{% blocktrans %}Just enter your name and the book's title to get started.{% endblocktrans %}</p>
+    <p class="last description">{% blocktrans %}Just enter your name and the book's title to get started.{% endblocktrans %}</p>
 {% endblock %}
 
 {% block dialog_right_box %}
     
-    <form id="frontpage-form-create_update_submission" 
-        class="create_update_submission" 
+    <form class="create-update-submission" 
         action="{% if editing %}{% url update nonce=submission.nonce %}{% else %}{% url create %}{% endif %}" 
         method="post">
 
         {% csrf_token %}
         {{ form.as_p }}
-        <p id="frontpage-form-create_update_submission-submit-next" class="submit-next">Next step: add files <input class="submitbutton" type="submit" value="{% if editing %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}" /></p>
+        <p class="submit-next">
+            {% trans "Next step" %}: 
+            {% if editing %}{% trans "review" %}{% else %}{% trans "add files" %}{% endif %}
+            <input class="submitbutton" type="submit" value="{% if editing %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}" />
+        </p>
         {% if editing %}
             <a class="return" href="{% url review nonce=submission.nonce %}">{% trans "Return to book" %}</a>
         {% endif %}
