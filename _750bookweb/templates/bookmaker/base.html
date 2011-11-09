@@ -1,0 +1,9 @@
+{% extends "site_base.html" %}
+
+{% load i18n %}
+
+{% block dialog_body %}
+    <div class="dialog-left-box">{% block dialog_left_box %}{% endblock %}</div>
+    <div class="dialog-right-box">{% block dialog_right_box %}{% endblock %}</div>
+    <div class="dialog-clear"></div>
+{% endblock %}

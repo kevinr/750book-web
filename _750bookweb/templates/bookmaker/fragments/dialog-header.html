@@ -1,0 +1,7 @@
+{% load i18n %}
+
+<h2>
+    {% blocktrans with submission.title as title with submission.author as author %}
+        <span class="title">{{title}}</span>, by <span class="author">{{author}}</span>
+    {% endblocktrans %}
+</h2>

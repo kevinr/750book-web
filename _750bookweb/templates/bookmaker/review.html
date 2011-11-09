@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "bookmaker/base.html" %}
 
 {% load i18n %}
 
@@ -11,20 +11,18 @@
 {% endblock %}
 
 {% block body_class %}review{% endblock %}
-
-{% block body %}
     
-    <h1>
-        {% if processed %}
-            {% blocktrans with submission.title as title with submission.author as author %}
-                Processed {{ title }}, by {{ author }}
-            {% endblocktrans %}
-        {% else %}
-            {% blocktrans with submission.title as title with submission.author as author %}
-                Review {{ title }}, by {{ author }}
-            {% endblocktrans %}
-        {% endif %}
-    </h1>
+{% block dialog_header_outer %}
+    {% include "bookmaker/fragments/dialog-header.html" %}
+{% endblock %}
+
+{% block dialog_left_box %}
+    <p id="reviewpage-calltoaction" class="first calltoaction">{% blocktrans %}Review your book!{% endblocktrans %}</p>
+
+    <p id="reviewpage-description" class="last description">{% blocktrans %}When you're happy with it, click 'Submit book for processing...'{% endblocktrans %}</p>
+{% endblock %}
+
+{% block dialog_right_box %}
     
     <dl class="usersubmission">
         <dt>{% trans "Title" %}</dt>

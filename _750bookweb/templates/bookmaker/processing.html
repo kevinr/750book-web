@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "bookmaker/base.html" %}
 
 {% load i18n %}
 
@@ -10,7 +10,7 @@
 
 {% block body_class %}processing{% endblock %}
 
-{% block body %}
+{% block dialog_right_box %}
     
     <h1>
         {% blocktrans with submission.title as title with submission.author as author %}

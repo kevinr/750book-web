@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "bookmaker/base.html" %}
 
 {% load i18n %}
 
@@ -12,29 +12,31 @@
 
 {% block body_class %}update{% endblock %}
 
-{% block body %}
-    
-    <h1>
-        {% if editing %}
-            {% blocktrans with submission.title as title with submission.author as author %}
-                Updating {{title}}, by {{author}}
-            {% endblocktrans %}
-        {% else %}
-            Create new submission
-        {% endif %}
-    </h1>
-    
+{% block dialog_header_outer %}
     {% if editing %}
-        <form class="create_update_submission" action="{% url update nonce=submission.nonce %}" method="post">
-    {% else %}
-        <form class="create_update_submission" action="{% url create %}" method="post">
+        {% include "bookmaker/fragments/dialog-header.html" %}
     {% endif %}
-            {% csrf_token %}
-            {{ form.as_p }}
-            <input type="submit" value="{% if editing %}Update{% else %}Create{% endif %}" />
-            {% if editing %}
-                <a class="return" href="{% url review nonce=submission.nonce %}">Return to book</a>
-            {% endif %}
+{% endblock %}
+
+{% block dialog_left_box %}
+    <p id="frontpage-calltoaction" class="first calltoaction">{% blocktrans %}Turn your <a href="http://750words.com">750 Words</a> writing into a physical book!{% endblocktrans %}</p>
+
+    <p id="frontpage-description" class="description">{% blocktrans %}Just enter your name and the book's title to get started.{% endblocktrans %}</p>
+{% endblock %}
+
+{% block dialog_right_box %}
+    
+    <form id="frontpage-form-create_update_submission" 
+        class="create_update_submission" 
+        action="{% if editing %}{% url update nonce=submission.nonce %}{% else %}{% url create %}{% endif %}" 
+        method="post">
+
+        {% csrf_token %}
+        {{ form.as_p }}
+        <p id="frontpage-form-create_update_submission-submit-next" class="submit-next">Next step: add files <input class="submitbutton" type="submit" value="{% if editing %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}" /></p>
+        {% if editing %}
+            <a class="return" href="{% url review nonce=submission.nonce %}">{% trans "Return to book" %}</a>
+        {% endif %}
     </form>
     
 {% endblock %}
