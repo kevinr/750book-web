@@ -1,6 +1,7 @@
+from django.db.models import Model
 from django.http import HttpResponseRedirect
 from django.core.urlresolvers import reverse
-from django.forms import ModelForm
+from django.forms import ModelForm, CharField, TextInput
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -10,10 +11,28 @@ from xml.etree import ElementTree as ET
 
 from models import UserSubmission, File
 
+def _formfield_from_modelfield(model, fieldname, attrs=None, extra_attrs=None):
+    assert(isinstance(model, type))
+    assert(issubclass(model, Model))
+
+    formfield = model._meta.get_field(fieldname).formfield()
+
+    if attrs:
+        formfield.widget.attrs = attrs.copy()
+
+    if extra_attrs:
+        formfield.widget.attrs.update(extra_attrs)
+
+    return formfield
+
 class UserSubmissionForm(ModelForm):
     class Meta:
         model = UserSubmission
         exclude = ['state']
+
+    title = _formfield_from_modelfield(UserSubmission, 'title', extra_attrs={'autofocus': 'true'})
+    author = _formfield_from_modelfield(UserSubmission, 'author', extra_attrs={'placeholder': 'your name here!'})
+
 
 class FileForm(ModelForm):
     class Meta:
