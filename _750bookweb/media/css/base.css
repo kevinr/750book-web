@@ -32,7 +32,7 @@ h1 {
 div.dialog {
     width: 590px;
     min-height: 320px;
-    padding: 18px;
+    padding: 1em;
 
     margin: auto;
 
@@ -53,7 +53,7 @@ div.dialog {
 h2 {
     font-size: 1em;
     font-weight: bold;
-    margin-bottom: 7pt;
+    margin-bottom: 0.5em;
 }
 
 div.dialog-left-box {
@@ -62,22 +62,22 @@ div.dialog-left-box {
     width: 35%;
     min-height: 320px;
 
-    margin-bottom: 7pt;
-    padding-right: 12px;
+    margin-bottom: 0.5em;
+    padding-right: 0.75em;
 }
 
 div.dialog-right-box {
     float: left;
 
     width: 60%;
-    min-height: 320px;
+    min-height: 16em;
 
     border-left-width: 1px;
     border-left-style: dotted;
     border-left-color: #aaa;
 
-    margin-bottom: 7pt;
-    padding-left: 12px;
+    margin-bottom: 0.5em;
+    padding-left: 0.75em;
 
     text-align: justify;
 }
@@ -89,28 +89,25 @@ div.dialog-clear {
 }
 
 div.dialog-footer {
-    min-height: 14pt;
+    min-height: 1em;
 }
 
 p {
-    padding: 4pt 0pt;
+    padding: 0.25em 0em;
 }
 /* *-of-type is a CSS3-ism, won't be reliable; thankfully I care more about tops lining up */
 p:first-child {
-    padding-top: 0pt;
-}
-p.last {
-    padding-bottom: 0pt;
+    padding-top: 0em;
 }
 p.calltoaction {
     font-weight: bold;
 }
 
 body.create-submission p.calltoaction {
-    padding-top: 44pt;
+    padding-top: 3em;
 }
 body.create-submission form.create-update-submission {
-    padding-top: 100pt;
+    padding-top: 7em;
 }
 
 label {
@@ -126,7 +123,7 @@ input {
 }
 input[type="submit"] {
     font-weight: bold;
-    padding: 2px;
+    padding: 0.25em;
     margin-left: 0.5em;
     text-align: center;
 }
@@ -140,13 +137,14 @@ p.submit-next {
 }
 
 body.create-submission p.submit-next {
-    margin-top: 60pt;
+    margin-top: 4.25em;
+    padding-bottom: 0em;
 }
 
 div.footer {
     text-align: center;
-    font-size: 7pt;
-    margin-top: 20px;
+    font-size: 0.5em;
+    margin-top: 3em;
     color: #666;
 }
 div.footer a {
