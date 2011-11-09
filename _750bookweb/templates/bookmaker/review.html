@@ -54,7 +54,7 @@
             <input type="submit" value="Submit book for processing..."/>
         </form>
     {% else %}
-        Here's your completed book!
+        <a href="{{ submission.processed_url }}">Here's your completed book!</a>
     {% endif %}
     
 {% endblock %}

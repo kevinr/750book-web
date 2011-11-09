@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<compile>
+  <token>{{ token }}</token>
+  <name>{{ request_name }}</name>
+  <resources root-resource-path="main.tex">
+    <resource path="main.tex">
+      <![CDATA[
+{{ latex }}
+      ]]>
+    </resource>
+  </resources>
+</compile>

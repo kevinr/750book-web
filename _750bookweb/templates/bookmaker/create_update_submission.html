@@ -32,7 +32,9 @@
             {% csrf_token %}
             {{ form.as_p }}
             <input type="submit" value="{% if editing %}Update{% else %}Create{% endif %}" />
-            <a class="return" href="{% url review nonce=submission.nonce %}">Return to book</a>
+            {% if editing %}
+                <a class="return" href="{% url review nonce=submission.nonce %}">Return to book</a>
+            {% endif %}
     </form>
     
 {% endblock %}

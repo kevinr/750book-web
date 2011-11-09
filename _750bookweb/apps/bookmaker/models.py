@@ -11,9 +11,11 @@ from _750booklatex import render as render_750booklatex
 
 class UserSubmission(models.Model):
     ctime = models.DateTimeField(_("Creation Time"), auto_now_add=True)
-    mtime = models.DateTimeField(_("Modification Time"), auto_now=True)
+    mtime = models.DateTimeField(_("Modification Time"), auto_now=True) 
+    # refers only to user modifications, not our modifications
 
     nonce = models.CharField(_("Nonce"), default=lambda: str(uuid.uuid4()), editable=False, blank=True, max_length=32)
+
     title = models.CharField(_("Title"), default="750 Words Morning Pages", max_length=100)
     author = models.CharField(_("Author"), max_length=100)
 
@@ -24,6 +26,9 @@ class UserSubmission(models.Model):
     )
     state = models.CharField(_("Current State"), max_length=20, choices=STATE_CHOICES, default='NEW')
     processing_time = models.DateTimeField(_("Processing Time"), null=True, blank=True, editable=False)
+    processed_time = models.DateTimeField(_("Processed Time"), null=True, blank=True, editable=False)
+
+    processed_url = models.CharField(_("Processed URL"), max_length=200, null=True, blank=True, editable=False)
 
     def __getattribute__(self, name):
         if name == 'files':
@@ -43,9 +48,15 @@ class UserSubmission(models.Model):
     def is_processed(self):
         return self.state == 'PROCESSED'
 
-    def process(self):
+    def mark_as_processing(self):
         self.processing_time = datetime.now()
         self.state = 'PROCESSING'
+        self.save()
+
+    def mark_as_processed(self, url):
+        self.processed_time = datetime.now()
+        self.processed_url = url
+        self.state = 'PROCESSED'
         self.save()
 
     def render_to_latex(self):

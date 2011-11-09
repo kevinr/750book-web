@@ -3,6 +3,10 @@ from django.core.urlresolvers import reverse
 from django.forms import ModelForm
 from django.shortcuts import get_object_or_404, render_to_response
 from django.template import RequestContext
+from django.template.loader import render_to_string
+
+import requests as http_requests
+from xml.etree import ElementTree as ET
 
 from models import UserSubmission, File
 
@@ -76,7 +80,20 @@ def process(request, nonce=''):
     if submission.is_processed():
         return HttpResponseRedirect(submission.get_absolute_url())
     elif request.method == 'POST' and submission.can_process():
-        submission.process()
+        # XXX TODO this is better done asynchronously and with more abstraction
+        # XXX TODO its current sad state is why the below line is commented out
+        #submission.mark_as_processing()
+        data = { 'token': 'a3841f8142f25477acd09ede082cba31',  # settings.CLSI_TOKEN,
+            'latex': submission.render_to_latex(),
+            'request_name': submission.nonce, }
+        clsi_request = render_to_string('bookmaker/clsi_request.xml', data).encode('utf-8')
+        ret = http_requests.post('http://clsi.scribtex.com/clsi/compile', data=clsi_request,
+            headers={'content-type': 'text/xml; charset=utf-8'})
+        assert ret.status_code == 200
+        xml = ET.fromstring(ret.content)
+        url = xml.find('output').find('file').get('url')
+        submission.mark_as_processed(url)
+        
 
     return render_to_response('bookmaker/processing.html', { 'submission': submission, 'reload': 5, },
                                 context_instance=RequestContext(request))
