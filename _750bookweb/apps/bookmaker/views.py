@@ -49,6 +49,13 @@ def create_update_submission(request, nonce=''):
         editing = True
         submission = get_object_or_404(UserSubmission, nonce=nonce)
 
+        # don't let you edit the object if it's processing or processed.
+        # this is CRITICAL, be very careful modifying this stanza or the above!
+        if submission.is_processing():
+            return HttpResponseRedirect(reverse(process, kwargs={'nonce': submission.nonce}))
+        elif not submission.can_process():
+            return HttpResponseRedirect(reverse(review, kwargs={'nonce': submission.nonce}))
+
     if request.method == 'POST':
         form = UserSubmissionForm(request.POST, instance=submission)
         if form.is_valid():
@@ -65,6 +72,14 @@ def create_update_submission(request, nonce=''):
 
 def add_files(request, nonce=''):
     submission = get_object_or_404(UserSubmission, nonce=nonce)
+
+    # don't let you edit the object if it's processing or processed.
+    # this is CRITICAL, be very careful modifying this stanza or the above!
+    if submission.is_processing():
+        return HttpResponseRedirect(reverse(process, kwargs={'nonce': submission.nonce}))
+    elif not submission.can_process():
+        return HttpResponseRedirect(reverse(review, kwargs={'nonce': submission.nonce}))
+
     files = File.objects.filter(usersubmission=submission)
     fileinstance = File(usersubmission=submission)
 
@@ -86,6 +101,8 @@ def review(request, nonce=''):
     submission = get_object_or_404(UserSubmission, nonce=nonce)
     files = File.objects.filter(usersubmission=submission)
 
+    # don't let you review the object if it's processing
+    # this is important UX, be very careful modifying this stanza or the above!
     if submission.is_processing():
         return HttpResponseRedirect(reverse(process, kwargs={'nonce': submission.nonce}))
 
