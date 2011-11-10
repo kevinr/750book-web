@@ -125,8 +125,14 @@ body.add-file form label {
 body.review p.calltoaction {
     padding-top: 5em;
 }
-body.review dl.usersubmission {
-    padding-top: 1.25em;
+body.review div.usersubmission, body.review div.filelist {
+    padding-top: 1.50em;
+}
+div.filelist ul {
+    padding-top: 0.37em;
+}
+body.finished div.filelist {
+    padding-top: 3.00em;
 }
 
 ul {
@@ -169,14 +175,6 @@ input[type="text"] {
 }
 input[type="file"] {
     font-size: 0.75em;
-}
-
-p.submit-next-inline {
-    float: right;
-
-    padding-bottom: 1.50em;
-
-    text-align: right;
 }
 
 p.submit-next {

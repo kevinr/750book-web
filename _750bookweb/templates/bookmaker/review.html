@@ -10,64 +10,82 @@
     {% endif %}
 {% endblock %}
 
-{% block body_class %}review{% endblock %}
+{% block body_class %}
+{% if not processed %}
+    review
+{% else %}
+    review finished
+{% endif %}
+{% endblock %}
     
 {% block dialog_header_outer %}
     {% include "bookmaker/fragments/dialog-header.html" %}
 {% endblock %}
 
 {% block dialog_left_box %}
-    <p class="calltoaction">{% blocktrans %}Review your book!{% endblocktrans %}</p>
-
-    <p class="description">{% blocktrans %}When you're happy with it, click 'Submit book for processing...'{% endblocktrans %}</p>
+    {% if not processed %}
+        <p class="calltoaction">{% blocktrans %}Review your book!{% endblocktrans %}</p>
+        <p class="description">{% blocktrans %}When you're happy with it, click 'Submit book for processing...'{% endblocktrans %}</p>
+    {% else %}
+        <p class="calltoaction">{% blocktrans %}Enjoy your book!{% endblocktrans %}</p>
+        <p class="description">{% blocktrans %}Thanks for using 750book.{% endblocktrans %}</p>
+        <p><a href="{% url create %}">{% blocktrans %}Create a new book{% endblocktrans %}</a></p>
+    {% endif %}
 {% endblock %}
 
 {% block dialog_right_box %}
     
-    <dl class="usersubmission">
-        <dt>{% trans "Title" %}:</dt>
-        <dd>{{ submission.title }}</dd>
+    <div class="usersubmission">
+        <dl class="usersubmission">
+            <dt>{% trans "Title" %}:</dt>
+            <dd>{{ submission.title }}</dd>
 
-        <dt>{% trans "Author" %}:</dt>
-        <dd>{{ submission.author }}</dd>
-    </dl>
-    
-    {% if not processed %}
-        <p class="submit-next-inline">
-            <a href="{% url update nonce=submission.nonce %}">Update</a>
-        </p>
-        <div class="dialog-clear"></div>
-    {% endif %}
+            <dt>{% trans "Author" %}:</dt>
+            <dd>{{ submission.author }}</dd>
+        </dl>
+        
+        {% if not processed %}
+            <p class="submit-next">
+                <a href="{% url update nonce=submission.nonce %}">Update</a>
+            </p>
+            <div class="dialog-clear"></div>
+        {% endif %}
+    </div>
 
-    <dl class="filelist">
-        <dt>{% trans "Files" %}:</dt>
-        <dd>
-            <ul>
-                {% for file in files %}
-                    <li>{{ file }}</li>
-                {% endfor %}
-            </ul>
-        </dd>
-    </dl>
-    
-    {% if not processed %}
-        <p class="submit-next">
-            <a href="{% url add_files nonce=submission.nonce %}">Add a file</a>
-        </p>
-    {% else %}
-        <p class="submit-next">
-            <a href="{{ submission.processed_url }}">Here's your completed book!</a>
-        </p>
-    {% endif %}
+    <div class="filelist">
+        <dl class="filelist">
+            <dt>{% trans "Files" %}:</dt>
+            <dd>
+                <ul>
+                    {% for file in files %}
+                        <li>{{ file }}</li>
+                    {% endfor %}
+                </ul>
+            </dd>
+        </dl>
+        
+        {% if not processed %}
+            <p class="submit-next">
+                <a href="{% url add_files nonce=submission.nonce %}">Add a file</a>
+            </p>
+        {% endif %}
+    </div>
+
     <div class="dialog-clear"></div>
     
 {% endblock %}
 
 {% block dialog_footer_outer %}
     <div class="dialog-footer">
-        <form action="{% url process nonce=submission.nonce %}" method="post">
-            {% csrf_token %}
-            <input type="submit" id="review-submit" value="Submit book for processing..."/>
-        </form>
+        {% if not processed %}
+            <form action="{% url process nonce=submission.nonce %}" method="post">
+                {% csrf_token %}
+                <input type="submit" id="review-submit" value="Submit book for processing..."/>
+            </form>
+        {% else %}
+            <p>
+                <a href="{{ submission.processed_url }}">Here's your completed book!</a>
+            </p>
+        {% endif %}
     </div>
 {% endblock %}
