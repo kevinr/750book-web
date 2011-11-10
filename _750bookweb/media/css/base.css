@@ -31,7 +31,6 @@ h1 {
 
 div.dialog {
     width: 590px;
-    min-height: 320px;
     padding: 1em;
 
     margin: auto;
@@ -88,10 +87,6 @@ div.dialog-clear {
     clear: both;
 }
 
-div.dialog-footer {
-    min-height: 1em;
-}
-
 p {
     padding: 0.25em 0em;
 }
@@ -110,15 +105,57 @@ body.create-submission form.create-update-submission {
     padding-top: 7em;
 }
 
+body.update-submission p.calltoaction {
+    padding-top: 4em;
+}
+body.update-submission form.create-update-submission {
+    padding-top: 6.75em;
+}
+
+body.add-file p.calltoaction {
+    padding-top: 4em;
+}
+body.add-file form.add-file {
+    padding-top: 6.75em;
+}
+body.add-file form label {
+    min-width: 0em;
+}
+
+body.review p.calltoaction {
+    padding-top: 5em;
+}
+body.review dl.usersubmission {
+    padding-top: 1.25em;
+}
+
+ul {
+    list-style-position: inside;
+    font-size: 0.75em;
+}
+
+dt {
+    float: left;
+    font-weight: bold;
+    min-width: 4em;
+    margin-right: 0.5em;
+    text-align: right;
+}
+
+dd {
+    padding-left: 4.5em;
+}
+
 label {
     float: left;
     display: block;
     font-weight: bold;
-    width: 4em;
+    min-width: 4em;
     margin-right: 0.5em;
     text-align: right;
 }
 input {
+    clear: both;
     font-size: inherit;
 }
 input[type="submit"] {
@@ -128,17 +165,54 @@ input[type="submit"] {
     text-align: center;
 }
 input[type="text"] {
-    min-width: 12em;
+    width: 12em;
+}
+input[type="file"] {
+    font-size: 0.75em;
+}
+
+p.submit-next-inline {
+    float: right;
+
+    padding-bottom: 1.50em;
+
+    text-align: right;
 }
 
 p.submit-next {
     float: right;
+
+    padding-bottom: 0em;
+
     text-align: right;
 }
 
 body.create-submission p.submit-next {
     margin-top: 4.25em;
-    padding-bottom: 0em;
+}
+
+body.update-submission p.submit-next {
+    margin-top: 4.75em;
+}
+
+body.update-submission p.return {
+    margin-top: 6.25em;
+}
+
+body.add-file p.submit-next {
+    margin-top: 6.00em;
+}
+
+body.add-file p.return {
+    margin-top: 5.25em;
+}
+
+body.review p.return {
+    margin-top: 4.75em;
+}
+
+div.dialog-footer {
+    text-align: center;
 }
 
 div.footer {

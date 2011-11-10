@@ -25,13 +25,22 @@
 {% endblock %}
 
 {% block dialog_left_box %}
-    <p class="first calltoaction">
-        {% blocktrans %}
-            Turn your <a href="http://750words.com">750 Words</a> writing into a physical book!
-        {% endblocktrans %}
-    </p>
-
-    <p class="last description">{% blocktrans %}Just enter your name and the book's title to get started.{% endblocktrans %}</p>
+    {% if editing %}
+        <p class="calltoaction">
+            {% blocktrans %}Update the book's title and author.{% endblocktrans %}
+        </p>
+        <p class="description">
+            {% blocktrans %}Measure twice, check for tyops thrice.{% endblocktrans %}
+        </p>
+        {% include "bookmaker/fragments/return-link.html" %}
+    {% else %}
+        <p class="calltoaction">
+            {% blocktrans %}
+                Turn your <a href="http://750words.com">750 Words</a> writing into a physical book!
+            {% endblocktrans %}
+        </p>
+        <p class="description">{% blocktrans %}Just enter your name and the book's title to get started.{% endblocktrans %}</p>
+    {% endif %}
 {% endblock %}
 
 {% block dialog_right_box %}
@@ -47,9 +56,6 @@
             {% if editing %}{% trans "review" %}{% else %}{% trans "add files" %}{% endif %}
             <input class="submitbutton" type="submit" value="{% if editing %}{% trans "Update" %}{% else %}{% trans "Create" %}{% endif %}" />
         </p>
-        {% if editing %}
-            <a class="return" href="{% url review nonce=submission.nonce %}">{% trans "Return to book" %}</a>
-        {% endif %}
     </form>
     
 {% endblock %}

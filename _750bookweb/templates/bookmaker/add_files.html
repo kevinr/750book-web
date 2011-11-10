@@ -2,30 +2,29 @@
 
 {% load i18n %}
 
-{% block head_title %}{% trans "Add or delete files" %}{% endblock %}
+{% block head_title %}{% trans "Add file" %}{% endblock %}
 
-{% block body_class %}add_files{% endblock %}
+{% block body_class %}add-file{% endblock %}
     
 {% block dialog_header_outer %}
     {% include "bookmaker/fragments/dialog-header.html" %}
 {% endblock %}
 
 {% block dialog_left_box %}
-    <p id="addpage-description" class="first description">{% blocktrans %}Add a 750 Words export file to your book.  Don't worry, you can add more later.{% endblocktrans %}</p>
+    <p class="calltoaction">{% blocktrans %}Add a 750 Words export file to your book.{% endblocktrans %}</p>
+    <p class="description">{% blocktrans %}Don't worry, you can add more later.{% endblocktrans %}</p>
+    {% include "bookmaker/fragments/return-link.html" %}
 {% endblock %}
 
 {% block dialog_right_box %}
     
-    <ul id="addpage-form-filelist" class="file-list">
-        {% for file in files %}
-            <li>{{ file }}</li>
-        {% endfor %}
-    </ul>
-    <form id="addpage-form-fileupload" class="add-files" enctype="multipart/form-data" action="{% url add_files nonce=submission.nonce %}" method="post">
+    <form class="add-file" enctype="multipart/form-data" action="{% url add_files nonce=submission.nonce %}" method="post">
         {% csrf_token %}
-        {{ form }}
-        <p id="addpage-form-fileupload-submit-next" class=submit-next">Next step: review <input class="submitbutton" type="submit" value="{%trans "Add file"%}" />
-        <a class="return" href="{% url review nonce=submission.nonce %}">{% trans "Return to book" %}</a>
+        {{ form.as_p }}
+        <p class="submit-next">
+            {% trans "Next step" %}: {% trans "review" %}
+            <input class="submitbutton" type="submit" value="{%trans "Add file"%}" />
+        </p>
     </form>
     
 {% endblock %}

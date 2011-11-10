@@ -17,21 +17,30 @@
 {% endblock %}
 
 {% block dialog_left_box %}
-    <p id="reviewpage-calltoaction" class="first calltoaction">{% blocktrans %}Review your book!{% endblocktrans %}</p>
+    <p class="calltoaction">{% blocktrans %}Review your book!{% endblocktrans %}</p>
 
-    <p id="reviewpage-description" class="last description">{% blocktrans %}When you're happy with it, click 'Submit book for processing...'{% endblocktrans %}</p>
+    <p class="description">{% blocktrans %}When you're happy with it, click 'Submit book for processing...'{% endblocktrans %}</p>
 {% endblock %}
 
 {% block dialog_right_box %}
     
     <dl class="usersubmission">
-        <dt>{% trans "Title" %}</dt>
+        <dt>{% trans "Title" %}:</dt>
         <dd>{{ submission.title }}</dd>
 
-        <dt>{% trans "Author" %}</dt>
+        <dt>{% trans "Author" %}:</dt>
         <dd>{{ submission.author }}</dd>
+    </dl>
+    
+    {% if not processed %}
+        <p class="submit-next-inline">
+            <a href="{% url update nonce=submission.nonce %}">Update</a>
+        </p>
+        <div class="dialog-clear"></div>
+    {% endif %}
 
-        <dt>{% trans "Files" %}</dt>
+    <dl class="filelist">
+        <dt>{% trans "Files" %}:</dt>
         <dd>
             <ul>
                 {% for file in files %}
@@ -42,17 +51,23 @@
     </dl>
     
     {% if not processed %}
-        <p class="usersubmission_actions">
-            <a href="{% url update nonce=submission.nonce %}">Update</a>
-            <a href="{% url add_files nonce=submission.nonce %}">Add or delete files</a>
+        <p class="submit-next">
+            <a href="{% url add_files nonce=submission.nonce %}">Add a file</a>
         </p>
+    {% else %}
+        <p class="submit-next">
+            <a href="{{ submission.processed_url }}">Here's your completed book!</a>
+        </p>
+    {% endif %}
+    <div class="dialog-clear"></div>
+    
+{% endblock %}
 
+{% block dialog_footer_outer %}
+    <div class="dialog-footer">
         <form action="{% url process nonce=submission.nonce %}" method="post">
             {% csrf_token %}
-            <input type="submit" value="Submit book for processing..."/>
+            <input type="submit" id="review-submit" value="Submit book for processing..."/>
         </form>
-    {% else %}
-        <a href="{{ submission.processed_url }}">Here's your completed book!</a>
-    {% endif %}
-    
+    </div>
 {% endblock %}
