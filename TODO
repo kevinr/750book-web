@@ -1,0 +1,38 @@
+* fix 'Example Site' in page titles
+* register domain names
+* decide between 750book and 750books
+* add a link to a test data file/add a link to sample output
+* implement deleting files
+* fix server error on compiling a book with no files
+* spin up local CLSI
+* ...using xelatex
+* CHANGE SECRET!
+* don't use screen to run Django web server
+* automate deploy using fabric or similar?
+* at least basic model tests
+* basic view permissions tests
+* refactor CLSI call out of the view
+* hide CLSI URL behind a 302 at least, possibly some better kind of proxying
+* dedup files?
+* detect duplicate months?
+* (2.0) redo file upload with AJAX/JS
+* cron job to dispose of old projects/files
+* don't allow downloads from file upload location!
+* FAQ/about/privacy policy pages
+* useful 404s, especially on gone-missing projects/compiled PDFs
+* (2.0) Lulu integration
+* disk quota worries?
+* database lock worries?
+* split into staging and production sites
+* add a link into the 750 Words export file page from the 'add file' page
+* linebreaks in edit mode should turn into linebreaks in the final product
+* (2.0) render Markdown -> LaTeX
+* get the site its own damn user account
+* upstart task
+* make sure the apache 404 page is suitably (un)useful if app server is down
+* move secrets into environment variables, per 12-factor app
+* document dependencies (mostly Ubuntu Maverick and Python 2.7 stdlib, I think.)
+* blow Pinax et al into requirements.txt if not there already
+* check uploaded files for 750 Words export-ness
+* app/site monitoring/reporting
+* at minimum, Google Analytics on the landing page
