@@ -144,6 +144,7 @@ INSTALLED_APPS = [
     # external
     "staticfiles",
     "debug_toolbar",
+    "gunicorn",
     
     # Pinax
     
