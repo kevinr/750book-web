@@ -10,6 +10,9 @@ FOREMAN=/var/lib/gems/1.9.1/bin/foreman
 rm /etc/init/$APP*.conf
 
 cat > /etc/init/$APP.conf <<EOF
+start on runlevel [2345]
+stop on runlevel [016]
+
 pre-start script
 
 bash << "EOS"
