@@ -1,1 +1,1 @@
-web: python manage.py run_gunicorn --access-logfile=- 127.0.0.1:$PORT
+web: /home/kevinr/src/750book-web-project/750book-web-env/bin/python manage.py run_gunicorn --access-logfile=- 127.0.0.1:$PORT
