@@ -1,0 +1,10 @@
+#!/home/kevinr/src/750book-web-project/750book-web-env/bin/python2.7
+# EASY-INSTALL-ENTRY-SCRIPT: 'celery==2.5.1','console_scripts','celerybeat'
+__requires__ = 'celery==2.5.1'
+import sys
+from pkg_resources import load_entry_point
+
+if __name__ == '__main__':
+    sys.exit(
+        load_entry_point('celery==2.5.1', 'console_scripts', 'celerybeat')()
+    )
