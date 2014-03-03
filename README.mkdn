@@ -1,3 +1,36 @@
 A web interface to [750book-script](https://github.com/kevinr/750book).
 
-Now defunct.
+Used to live at 750books.com.  Now defunct.  (No link: I let the domain
+expire, and it's now a parking page.)
+
+My second serious Django app.  I've learned a lot since, but this
+contains some bits I refer back to occasionally, particularly the CSS.
+
+Definitely should not be run as-is, as it eg. hardcodes SECRET\_KEY.
+(See above about having learned a lot since through painful trial-and-error.)
+
+If you're currently also learning through painful trial-and-error, I
+cannot recommend Daniel Greenfield and Audrey Roy's
+[*Two Scoops of Django*](http://twoscoopspress.org/collections/everything/products/two-scoops-of-django-1-6). 
+I wish it had existed when I was working on this project, as it will
+teach you, in a friendly and engaging fashion, to avoid all of the things I
+got wrong, plus many mistakes I never got far enough to make.
+(I don't have any relationship with them; just a big fan.)
+
+I never really launched the site -- I always had just a few more things to
+do before I announced it -- so it never saw serious use.  This was one of
+my big lessons in "the perfect is the enemy of the good."
+
+The site uses [CLSI](https://github.com/scribtex/clsi) to abstract using
+LaTeX to render PDFs.  The site specifically used the public
+CLSI test server, which the Scribtex folks took down after one of the big
+Rails vulnerabilities.  (Not coincidentally, that was when I pulled the plug
+on the 750books.com service, having not gotten around to those "few more
+things" for over a year.)
+
+So I present the site more as a historical curiosity than anything.
+
+Despite these failures, I spent a lot of time getting the CSS just right,
+and I *am* still proud of how good it looked:
+
+![750books css](http://free-dissociation.com/blog/posts/2011/11/07-playing-with-css/css-mockup.png)
