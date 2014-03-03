@@ -1,1 +1,3 @@
-basically a web interface to [750book-script](https://github.com/kevinr/750book)
+A web interface to [750book-script](https://github.com/kevinr/750book).
+
+Now defunct.
